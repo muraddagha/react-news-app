@@ -1,8 +1,42 @@
-# React + Vite
+# # React + Vite + Docker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a React application containerized using Docker. This guide will walk you through the steps to build and run the app in a Docker container.
 
-Currently, two official plugins are available:
+## Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Before you begin, ensure you have the following installed on your machine:
+
+- **Docker**: [Download and install Docker](https://www.docker.com/get-started)
+
+## Getting Started
+
+### 1. Clone the Repository
+
+First, clone the repository to your local machine:
+
+```bash
+git clone <repository-url>
+cd <repository-directory>
+```
+
+### 2. Build the Docker Image
+
+Build the Docker image using the Dockerfile provided:
+
+```bash
+docker build -t news-app .
+```
+
+### 3. Run the Docker Container
+
+Run the Docker container:
+
+```bash
+docker run -p 3000:80 news-app
+```
+
+### 4. Access the Application
+
+Open your browser and go to:
+
+http://localhost:3000
