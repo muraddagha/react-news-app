@@ -1,20 +1,10 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getData, getGuardianData, getNYTData } from "../utils/fetch";
-import { formatDate } from "../utils/utils";
 
 export const useGetQuery = (queryKey, path, page, pageSize) => {
   return useQuery({
-    queryKey: [queryKey, path, page],
-    queryFn: async () => {
-      const result = await getData(path, page, pageSize);
-
-      const articles = result.data.articles.map((e) => {
-        return { date: formatDate(e.publishedAt), ...e, id: Math.floor(Math.random() * 100000) };
-      });
-      console.log(result);
-      return articles;
-    },
-    enabled: !!path,
+    queryKey: [queryKey, path],
+    queryFn: async () => await getGuardianData(path, page, pageSize),
     staleTime: 600,
   });
 };

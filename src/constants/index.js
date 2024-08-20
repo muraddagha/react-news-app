@@ -15,7 +15,7 @@ export const API_SOURCES = {
   GUARDIAN_API: {
     NAME: 2,
     URL: "https://content.guardianapis.com/",
-    KEY: "1cca15e1-ada5-49c5-9d06-dcc58bfe04ba",
+    KEY: "&api-key=1cca15e1-ada5-49c5-9d06-dcc58bfe04ba",
   },
   NYTIMES: {
     NAME: 3,
@@ -33,11 +33,14 @@ export const categories = [
   { id: 2, name: "entertainment" },
   { id: 3, name: "general" },
   { id: 4, name: "politics" },
+  { id: 5, name: "U.S" },
+  { id: 6, name: "Technology" },
 ];
 export const sources = [
   { id: 1, name: "bbc-news" },
   { id: 2, name: "the-verge" },
   { id: 3, name: "google-news" },
+  { id: 4, name: "The New York Times" },
 ];
 
 export const authors = [
@@ -45,4 +48,5 @@ export const authors = [
   { id: 2, name: "BBC.com" },
   { id: 3, name: "The Associated Press" },
   { id: 4, name: "NBC Chicago" },
+  { id: 5, name: "John Doe" },
 ];

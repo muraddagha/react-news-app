@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { API_SOURCES, LOCAL_STORAGE } from "../constants";
 
 const initialFilterState = { author: "", category: "", source: "" };
-const initialUrlState = `${API_SOURCES.NEWS_API.URL}everything?q=bitcoin?${API_SOURCES.NEWS_API.KEY}`;
+const initialUrlState = `${API_SOURCES.NYTIMES.URL}articlesearch.json?q=election${API_SOURCES.NYTIMES.KEY}`;
 
 const filter = localStorage.getItem(LOCAL_STORAGE.PERSONALIZED_FEED_STORAGE)
   ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.PERSONALIZED_FEED_STORAGE)).filter

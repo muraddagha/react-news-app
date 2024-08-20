@@ -7,9 +7,9 @@ const Home = () => {
   return (
     <>
       <HotTopics />
-      <NewsApi />
       <GuardianNews />
       <NewYorkTimesNews />
+      <NewsApi />
     </>
   );
 };

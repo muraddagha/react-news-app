@@ -13,13 +13,21 @@ const PersonalizedFilter = () => {
 
   const buildUrl = (form) => {
     const params = {
-      authors: form.author || "",
-      sources: form.source || "",
-      category: form.category || "",
+      facet_fields: "source,section_name,author",
     };
 
+    if (form.source) {
+      params.fq = `source:${form.source}`;
+    }
+    if (form.category) {
+      params.fq = `${params.fq ? params.fq + "," : ""}section_name:${form.category}`;
+    }
+    if (form.author) {
+      params.fq = `${params.fq ? params.fq + "," : ""}author:${form.author}`;
+    }
+
     const queryString = buildQueryString(params);
-    return `${API_SOURCES.NEWS_API.URL}top-headlines${queryString}`;
+    return `${API_SOURCES.NYTIMES.URL}articlesearch.json${queryString}${API_SOURCES.NYTIMES.KEY}`;
   };
 
   const handleChange = (event) => {
@@ -74,10 +82,9 @@ const PersonalizedFilter = () => {
             placeholder="Select category"
             name="category"
             onChange={handleChange}
-            disabled={formData.source}
             value={formData.category}
           >
-            <option value="">{!formData.source ? "Select category" : "Can't mix with source (NewsAPI)."}</option>
+            <option value="">Select category</option>
             {categories.map((category) => (
               <React.Fragment key={category.id}>
                 <option value={category.name}>{category.name}</option>
@@ -89,10 +96,9 @@ const PersonalizedFilter = () => {
             placeholder="Select source"
             name="source"
             onChange={handleChange}
-            disabled={formData.category}
             value={formData.source}
           >
-            <option value="">{!formData.category ? "Select source" : "Can't mix with category (NewsAPI)."}</option>
+            <option value="">Select source</option>
 
             {sources.map((source) => (
               <React.Fragment key={source.id}>

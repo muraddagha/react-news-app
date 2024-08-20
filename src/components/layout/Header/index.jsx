@@ -1,7 +1,4 @@
-// import { Link } from "react-router-dom";
-
 import { Link } from "react-router-dom";
-import Filter from "../Filter";
 
 const Header = () => {
   return (
@@ -17,7 +14,6 @@ const Header = () => {
           <Link to={"/for-you"} className="btn btn-ghost underline text-md">
             For you
           </Link>
-          <Filter />
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
               <svg

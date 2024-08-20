@@ -25,19 +25,23 @@ const LoadMoreButton = ({ hasNextPage, isFetchingNextPage, fetchNextPage }) => {
 };
 
 const NewsListItems = ({ data, apiName }) => {
-  return data && data.pages ? (
+  return data && Array.isArray(data.pages) && data.pages.length > 0 ? (
     data.pages.map((page, index) => (
       <React.Fragment key={index}>
-        {page.data.map((item) =>
-          apiName === API_SOURCES.NEWS_API.NAME ? (
-            <NewsItem key={item.id} item={item} />
-          ) : apiName === API_SOURCES.GUARDIAN_API.NAME ? (
-            <GuardianNewsItem key={item.id} item={item} />
-          ) : apiName === API_SOURCES.NYTIMES.NAME ? (
-            <NewYorkTimesNewsItem key={item._id} item={item} />
-          ) : (
-            <p>No matching API source</p>
+        {page.data.length > 0 ? (
+          page.data.map((item) =>
+            apiName === API_SOURCES.NEWS_API.NAME ? (
+              <NewsItem key={item.id} item={item} />
+            ) : apiName === API_SOURCES.GUARDIAN_API.NAME ? (
+              <GuardianNewsItem key={item.id} item={item} />
+            ) : apiName === API_SOURCES.NYTIMES.NAME ? (
+              <NewYorkTimesNewsItem key={item._id} item={item} />
+            ) : (
+              <p>No matching API source</p>
+            )
           )
+        ) : (
+          <p>No views available!</p>
         )}
       </React.Fragment>
     ))

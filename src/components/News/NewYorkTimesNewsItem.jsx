@@ -1,3 +1,4 @@
+import moment from "moment";
 const NewYorkTimesNewsItem = ({ item }) => {
   const imgBaseUrl = "https://www.nytimes.com/";
   return (
@@ -6,14 +7,14 @@ const NewYorkTimesNewsItem = ({ item }) => {
         <figure>
           <img
             className="min-h-[200px]"
-            src={item.multimedia[0].url ? imgBaseUrl + item.multimedia[0].url : "/src/assets/default-news.avif"}
+            src={item?.multimedia[0]?.url ? imgBaseUrl + item.multimedia[0].url : "/src/assets/default-news.avif"}
             alt="News Photo"
           />
         </figure>
         <div className="card-body my-2">
           <h2 className="card-title h-28 text-sm">{item.headline.main || ""}</h2>
           <div className="flex">
-            <span className="font-thin mr-5 text-sm">{item.pub_date}</span>
+            <span className="font-thin mr-5 text-sm">{moment(item.pub_date).format("YYYY-MM-DD").toString()}</span>
             <span className="font-thin text-sm">{item.source}</span>
           </div>
         </div>

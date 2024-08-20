@@ -15,7 +15,8 @@ const settings = {
   slidesToScroll: 1,
   arrows: false,
 };
-const url = `${API_SOURCES.NEWS_API.URL}everything?q=bitcoin${API_SOURCES.NEWS_API.KEY}`;
+const defaultUrl = `${API_SOURCES.GUARDIAN_API.URL}/search?${API_SOURCES.GUARDIAN_API.KEY}&show-fields=thumbnail`;
+
 const pageOptions = {
   page: 1,
   pageSize: 5,
@@ -23,25 +24,16 @@ const pageOptions = {
 const loadingSkelton = <div className="skeleton h-96 w-full"></div>;
 
 const HotTopics = () => {
-  const { isPending, data, status, error } = useGetQuery(
-    QUERYKEYS.HOT_TOPICS,
-    url,
-    pageOptions.page,
-    pageOptions.pageSize
-  );
-
+  const { isPending, data } = useGetQuery(QUERYKEYS.HOT_TOPICS, defaultUrl, pageOptions.page, pageOptions.pageSize);
   return (
     <section id="hot-topics">
       <Divider title="Hot topics" />
-      {status === error ? (
-        <p>No views available</p>
-      ) : (
-        <Loading isPending={isPending} loadingSkelton={loadingSkelton}>
-          <Slider {...settings}>
-            {data ? data.map((item) => <HotTopicItem key={item.id} item={item} />) : <p>No views available</p>}
-          </Slider>
-        </Loading>
-      )}
+
+      <Loading isPending={isPending} loadingSkelton={loadingSkelton}>
+        <Slider {...settings}>
+          {data ? data.data.map((item) => <HotTopicItem key={item.id} item={item} />) : <p>No views available</p>}
+        </Slider>
+      </Loading>
     </section>
   );
 };
