@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import ErrorBoundary from "./components/ErrorBoundary";
 const ForYou = lazy(() => import("./pages/ForYou"));
 const Layout = lazy(() => import("./components/layout/Layout"));
 const Home = lazy(() => import("./pages/Home"));
@@ -9,7 +10,9 @@ const Router = createBrowserRouter([
     path: "/",
     element: (
       <Suspense>
-        <Layout />
+        <ErrorBoundary>
+          <Layout />
+        </ErrorBoundary>
       </Suspense>
     ),
     children: [
@@ -17,7 +20,9 @@ const Router = createBrowserRouter([
         path: "/",
         element: (
           <Suspense>
-            <Home />{" "}
+            <ErrorBoundary>
+              <Home />
+            </ErrorBoundary>
           </Suspense>
         ),
       },
@@ -25,7 +30,9 @@ const Router = createBrowserRouter([
         path: "/for-you",
         element: (
           <Suspense>
-            <ForYou />
+            <ErrorBoundary>
+              <ForYou />
+            </ErrorBoundary>
           </Suspense>
         ),
       },

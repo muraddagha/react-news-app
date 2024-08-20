@@ -1,7 +1,9 @@
+import React from "react";
 import Loading from "../Loading";
 import GuardianNewsItem from "./GuardianNewsItem";
 import NewsItem from "./NewsItem";
-import PropTypes from "prop-types";
+import { API_SOURCES } from "../../constants";
+import NewYorkTimesNewsItem from "./NewYorkTimesNewsItem";
 const loadingSkelton = (
   <>
     {Array.from({ length: 10 }, (_, index) => (
@@ -10,26 +12,51 @@ const loadingSkelton = (
   </>
 );
 
-const LatestNews = ({ data = [], isPending = true, isGuardianApi = false }) => {
+const LoadMoreButton = ({ hasNextPage, isFetchingNextPage, fetchNextPage }) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-8">
-      <Loading isPending={isPending} loadingSkelton={loadingSkelton}>
-        {Array.isArray(data) && data.length > 0 ? (
-          data.map((item) =>
-            !isGuardianApi ? <NewsItem key={item.id} item={item} /> : <GuardianNewsItem key={item.id} item={item} />
-          )
-        ) : (
-          <p>No news available</p>
-        )}
-      </Loading>
-    </div>
+    hasNextPage && (
+      <div className="flex w-full justify-center mt-10">
+        <button className="btn btn-accent" onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
+          {isFetchingNextPage ? "Loading more..." : "Load More"}
+        </button>
+      </div>
+    )
   );
 };
 
-LatestNews.propTypes = {
-  data: PropTypes.array,
-  isPending: PropTypes.bool,
-  isGuardianApi: PropTypes.bool,
+const NewsListItems = ({ data, apiName }) => {
+  return data && data.pages ? (
+    data.pages.map((page, index) => (
+      <React.Fragment key={index}>
+        {page.data.map((item) =>
+          apiName === API_SOURCES.NEWS_API.NAME ? (
+            <NewsItem key={item.id} item={item} />
+          ) : apiName === API_SOURCES.GUARDIAN_API.NAME ? (
+            <GuardianNewsItem key={item.id} item={item} />
+          ) : apiName === API_SOURCES.NYTIMES.NAME ? (
+            <NewYorkTimesNewsItem key={item._id} item={item} />
+          ) : (
+            <p>No matching API source</p>
+          )
+        )}
+      </React.Fragment>
+    ))
+  ) : (
+    <p>No views available!</p>
+  );
 };
 
-export default LatestNews;
+const NewsList = ({ data = {}, isPending = true, apiName, hasNextPage, isFetchingNextPage, fetchNextPage }) => {
+  return (
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-8">
+        <Loading isPending={isPending} loadingSkelton={loadingSkelton}>
+          <NewsListItems data={data} apiName={apiName} />
+        </Loading>
+      </div>
+      <LoadMoreButton hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage} fetchNextPage={fetchNextPage} />
+    </>
+  );
+};
+
+export default NewsList;
