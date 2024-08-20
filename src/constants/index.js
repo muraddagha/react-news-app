@@ -2,6 +2,7 @@ export const QUERYKEYS = {
   NEWS: "news",
   HOT_TOPICS: "hotTopics",
   PERSONALIZED_FEED: "feed",
+  GUARDIAN_NEWS:"guardian-news"
 };
 
 export const API_SOURCES = {
@@ -28,9 +29,12 @@ export const categories = [
 export const sources = [
   { id: 1, name: "bbc-news" },
   { id: 2, name: "the-verge" },
+  { id: 3, name: "google-news" },
 ];
 
 export const authors = [
-  { id: 1, name: "bbc-news" },
-  { id: 2, name: "the-verge" },
+  { id: 1, name: "CNN" },
+  { id: 2, name: "BBC.com" },
+  { id: 3, name: "The Associated Press" },
+  { id: 4, name: "NBC Chicago" },
 ];

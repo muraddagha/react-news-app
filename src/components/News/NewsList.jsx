@@ -1,4 +1,5 @@
 import Loading from "../Loading";
+import GuardianNewsItem from "./GuardianNewsItem";
 import NewsItem from "./NewsItem";
 import PropTypes from "prop-types";
 const loadingSkelton = (
@@ -9,12 +10,14 @@ const loadingSkelton = (
   </>
 );
 
-const LatestNews = ({ data = [], isPending = true }) => {
+const LatestNews = ({ data = [], isPending = true, isGuardianApi = false }) => {
   return (
-    <div className="grid grid-cols-4 gap-8">
+    <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-8">
       <Loading isPending={isPending} loadingSkelton={loadingSkelton}>
         {Array.isArray(data) && data.length > 0 ? (
-          data.map((item) => <NewsItem key={item.id} item={item} />)
+          data.map((item) =>
+            !isGuardianApi ? <NewsItem key={item.id} item={item} /> : <GuardianNewsItem key={item.id} item={item} />
+          )
         ) : (
           <p>No news available</p>
         )}
@@ -26,6 +29,7 @@ const LatestNews = ({ data = [], isPending = true }) => {
 LatestNews.propTypes = {
   data: PropTypes.array,
   isPending: PropTypes.bool,
+  isGuardianApi: PropTypes.bool,
 };
 
 export default LatestNews;

@@ -54,7 +54,7 @@ const PersonalizedFilter = () => {
     <div>
       <Divider title="Personalize your feed" />
       <form onSubmit={onSubmit}>
-        <div className="flex gap-4">
+        <div className="flex flex-wrap md:flex-nowrap gap-4">
           <select
             className="select select-bordered w-full select-sm"
             placeholder="Select author"
@@ -101,7 +101,7 @@ const PersonalizedFilter = () => {
             ))}
           </select>
           <div className="w-full">
-            <button type="submit" className="btn btn-sm btn-primary w-full">
+            <button disabled={isFormDataEmpty()} type="submit" className="btn btn-sm btn-primary w-full">
               Add
             </button>
             <button
